@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <title> calender</title>
+        <style>
+            button{
+                color:white;
+                background-color: transparent;
+                box-shadow:2px 1px whitesmoke ;
+                border-radius: 50%;
+                text-align: center;
+                font-size:18px;
+                height:40px;
+                width:40px;
+                cursor:pointer;
+            }
+            button:hover{
+                background-color:hsl(0,0%,50%);
+            }
+            button:active{
+                background-color:hsl(0,0%,50%);
+            }
+
+            body{
+             
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                height:100vh;
+                background-color:lightslategray;
+                
+
+            }
+            #final{
+                width:90%;
+                height:50px;
+                padding:20px;
+                font-size:20px;
+                text-align: left;
+                border:none;
+                background-color: transparent;
+                box-shadow: 0px 3px 20px rgba(46, 69, 115, 0.5);
+                color:white;
+             
+
+            }
+            .main{
+                display:inline-block;
+                overflow: hidden;
+                border-radius:20px;
+                width:300px;
+                margin:200px;
+                padding:10px;
+                box-shadow: 0px 3px 20px rgb(113,115,119,0.5);
+                background-color: transparent;
+                border:1px solid black;
+                position:fixed;
+
+
+
+            }
+            .keys{
+
+                display:grid;
+                grid-template-columns: repeat(4,1fr);
+                gap:10px;
+                padding:25px;
+
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <input  id="final" >
+            <div class="keys">
+                <button onclick="appenddisplay('+')">+</button>
+                <button onclick="appenddisplay('-')">-</button>
+                <button onclick="appenddisplay('*')">x</button>
+                <button onclick="appenddisplay('/')">/</button>
+                <button onclick="appenddisplay('%')">%</button>
+                <button onclick="appenddisplay('1')">1</button>
+                <button onclick="appenddisplay('2')">2</button>
+                <button onclick="appenddisplay('3')">3</button>
+                <button onclick="appenddisplay('4')">4</button>
+                <button onclick="appenddisplay('5')">5</button>
+                <button onclick="appenddisplay('6')">6</button>
+                <button onclick="appenddisplay('7')">8</button>
+                <button onclick="appenddisplay('9')">9</button>
+                <button onclick="appenddisplay('0')">0</button>
+                <button onclick="calculate()">=</button>
+                <button onclick="clearform()">Ac</button>
+                
+
+            </div>
+        </div>
+
+
+    <script>
+        const display=document.getElementById("final");
+
+        function appenddisplay(a){
+            display.value += a;
+        }
+        function clearform(){
+            display.value=" ";
+        }
+        function calculate(){
+            display.value=eval( display.value);
+        }
+        
+    </script>
+    </body>
+</html>
