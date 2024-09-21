@@ -1,0 +1,180 @@
+<html></html>
+    <head>
+        <title>to do list project</title>
+        <style>
+            .todolist{
+                border:1px solid black;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                padding:20px;
+                margin:100px;
+                width:400px;
+                background-color:transparent;
+                box-shadow:2px 3px 2px rgb(98, 172, 98);
+                border-radius:20px;
+                overflow:hidden;
+                position:absloute;
+                margin-left: 400px;
+                margin-top: 200px;
+
+            }
+            .butn{
+                color:white;
+                background-color: rgb(228, 135, 22);
+                border-radius:20px;
+                border:1px solid green;              
+                height:60px;
+                text-align: center;
+                font-size:20px;
+                height:50px;
+                cursor:pointer;
+            }
+            .input{
+                color:black;
+                background-color:transparent;
+                box-shadow: 3px 4px 5px rgb(39, 31, 31);
+                border-radius:20px;
+                border:1px solid green;
+                width:300px;
+                height:50px;
+                font-size:20px;
+
+            }
+            ul li{
+                display:flex;
+                align-items: center;
+                list-style:none;
+                font-size: 1.3rem;
+                letter-spacing:1px;
+                padding:12px;
+                user-select:none;
+                cursor:pointer;
+                background-color: var(--light-color);
+                border-right: 30px;
+                margin-block:10px;
+            }
+            ul li::before{  /*this is used for adding any content before some content ,that property will define in content property down
+                we can also define image with url(),we had also ::after that will add after */
+                content:"\f111"; /* unicode for the circle*/
+                font-family:"font Awesome 6 Free";
+                font-size: 1.2rem;
+                color:var(--primary-color);
+                margin-right: 15px;
+                display:inline-block;
+
+            }
+            ul li.checked::before{
+                content:"\f058"; /* unicode for the check circle*/
+                font-family:"font Awesome 6 Free";
+                color:var(--light-color);
+
+            }
+            ul li.checked{
+                text-decoration: line-through;
+            }
+
+             ul li span{
+                display:flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                border-radius: 50%;
+                line-height: 30px;
+                color:var(--primary-color);
+                list-style:none;
+                font-size: 1.6rem;
+                width:30px;
+                height:30px;
+                margin-left:auto;
+            }
+            ul li:hover{
+                background-color: rgb(150, 85, 212);
+                border-radius: 30px;
+            }
+            ul li.checked span:hover{
+                background: #fff;
+                color:var(--dark-color)
+            }
+            ul li span:hover{
+                /* background:var(--primary-color); */
+                color:#562626;
+                background-color:white;
+            } 
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+        <div class="todolist">
+            <div class="inputbox">
+                <h1 class="heading">List out your shedule &emsp;<i class="fa-solid fa-bars"></i></h1>
+                <div class="container">
+                    
+                    <input class="input" placeholder=" Enter the task..">
+                    <button class="butn" onclick="add()">Add &emsp;<i class="fa-sharp fa-solid fa-plus"></i></button>
+                    <ul class="lists">
+                        <!-- <li class="checked">hi </li> -->
+                        
+                    </ul>
+                   
+
+            </div>
+            
+        </div>
+
+        <!-- script code-->
+
+        <script>
+            const input =document.querySelector(".input");
+            const lists=document.querySelector(".lists");
+
+            function add(){
+
+                if(input.value ===""){
+                    alert("Please enter your task");
+                }
+                else {
+                    let li=document.createElement("li");
+                    li.innerText=input.value;
+                    lists.appendChild(li);
+
+                    let span=document.createElement("span");
+                    span.innerHTML="\u00d7";
+                    li.appendChild(span);
+                 
+                }
+                input.value="";
+                savedata(); // here we are adding  data so we should save that data
+
+            }
+            function savedata(){
+                localStorage.setItem('data',lists.innerHTML);
+            }
+            /* the above functio is used as .what ever values is given in the unorder list those data is stored in 
+            the data variable that is in localstorage of computer, and also it can access by using data variable*/
+            function loaddata(){
+                lists.innerHTML=localStorage.getItem("data");
+            }
+            /* this will use when we load the screen the data will be const if we dont do any modification 
+            untill we delete */
+            lists.addEventListener("click",(e)=>{
+                if(e.target.tagName==="LI"){
+                    e.target.classList.toggle("checked"); 
+                    savedata();
+                }
+                 else if(e.target.tagName==="SPAN"){
+                    e.target.parentElement.remove();
+                    savedata();
+                    
+                }
+            },false);
+            loaddata();
+            
+/*if we use classlist.toggle() it will check the condition first it will satisfy .then it will apply how we
+applyed to the checked class above code(line on the code) .if not existed it will do that task.if already existing like
+is overlined then it will remove*/
+        </script>
+
+    </body>
+
+</html>
