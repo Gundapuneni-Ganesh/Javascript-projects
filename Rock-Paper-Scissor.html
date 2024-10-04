@@ -1,0 +1,196 @@
+<html>
+    <head>
+        <title>Rock-paper-scissor</title>
+        <style>
+            body:hover{
+                background-color: darkgrey;
+            }
+            .main{
+                display:block;
+                justify-content: center;
+                align-items: center;
+                width:350px;
+                margin-left:450px;
+                border: 2px solid blue;
+                border-radius: 20px;
+                padding:20px;
+                position:fixed;
+                margin-top:90px;
+                font-size: larger;
+                font-size: x-large;
+                gap:20px;
+                height:450px;
+            }
+            .main:hover{
+                background-color: rgb(190, 207, 208);
+            }
+            .img-block{
+                display:flex;
+                justify-content: space-between;
+                align-items: center;
+                padding:30px;
+                margin:10px;
+                border:transparent;
+                box-shadow: 2px 3px 4px  lightcyan;
+                height:100px;
+                
+            }
+            .img{
+                border-radius: 50%;
+                border: 2px solid brown;
+                object-fit: cover;
+                width:80px;
+                height:70px;
+                gap:30px;
+
+            }
+            .score-block{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin:30px;
+                padding:10px;
+                gap:100px;
+            
+            }
+            .blocks{
+                display:inline-block;
+                align-items: center;
+                border:transparent;
+                box-shadow: 3px 3px 3px 3px lightsalmon;
+                height:100px;
+                width:100px;
+            }
+            .button{
+                display: block;
+                justify-content: center;
+                align-items: center;
+                margin-top: 50px;
+
+            }
+            #butn{
+                width:300px;
+                height:40px;
+                font-size:20px;
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: 400;
+                border-radius: 20px;
+                border:transparent;
+                box-shadow: 4px 4px 4px rgb(47, 200, 200);
+                margin-left: 40px;
+                color:white;
+                background-color: cornflowerblue;
+            
+            }
+            #message{
+                text-align: center;
+            }
+
+
+
+
+        </style>
+    </head>
+    <body>
+        <div class="main">
+
+            <div class="img-block">
+                <div id="rock"  class="block"><img src="https://media.geeksforgeeks.org/wp-content/uploads/20210705223618/default.jpeg" class="img" ></div>
+                <div id="paper" class="block"><img src="https://media.geeksforgeeks.org/wp-content/uploads/20210705223645/paper.jpeg" class="img"></div>
+                <div id="scissor" class="block"><img src="https://media.geeksforgeeks.org/wp-content/uploads/20210705223721/scissor.jpeg" class="img"></div>
+            </div>
+
+            <div class="score-block">
+
+                <div class="blocks">
+                    <h1 class="com" style="text-align: center;">0</h1>
+                    <p style="width:150px">computer score</p>
+                </div>
+
+                <div class="blocks">
+                    <h1 class="user" style="text-align: center;">1</h1>
+                    <p style="width:100px;font-family: serif;">user score</p>
+                </div>
+
+            </div>
+
+            <div class="button">
+                
+                <button id="butn">Know your score</button>
+            </div>
+
+        </div>
+
+
+        <!-- scripting block starts-->
+        <script>
+            const computer_display = document.querySelector(".com");
+            const user_display = document.querySelector(".user");
+            const message = document.getElementById("butn");
+            let compscore = 0;
+            let userscore = 0;
+      
+            const choices = document.querySelectorAll(".img-block div");
+            choices.forEach((choice) => {
+              choice.addEventListener("click", () => {
+                var user = choice.getAttribute("id");
+                playgame(user);
+              });
+            });
+      
+            const playgame = (user) => {
+              const computer = computerchoice();
+              if (user === computer) {
+                drawgame();
+              } else {
+                let userwin = true;
+                if (user === "rock") {
+                  if (computer === "paper") {
+                    userwin = false;
+                  } else {
+                    userwin = true;
+                  }
+                } else if (user === "paper") {
+                  if (computer === "scissor") {
+                    userwin = false;
+                  } else {
+                    userwin = true;
+                  }
+                } else {
+                  if (computer === "rock") {
+                    userwin = false;
+                  } else {
+                    userwin = true;
+                  }
+                }
+                showwinner(userwin, user, computer);
+              }
+            };
+      
+            const showwinner = (userwin, user, computer) => {
+              if (userwin) {
+                userscore++;
+                user_display.innerText = userscore;
+                message.innerText = `You win! ${user} beats ${computer}`;
+                message.style.backgroundColor = "green";
+              } else {
+                compscore++;
+                computer_display.innerText = compscore;
+                message.innerText = `You lost! ${computer} beats ${user}`;
+                message.style.backgroundColor = "lightorange";
+              }
+            };
+      
+            function drawgame() {
+              message.innerText = "Draw the game";
+            }
+      
+            function computerchoice() {
+              const a = ["rock", "paper", "scissor"];
+              var random_number = Math.floor(Math.random() * 3);
+              return a[random_number];
+            }
+        </script>
+    </body>
+</html> 
+        
