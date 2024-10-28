@@ -1,0 +1,27 @@
+.LoginBock{
+    border: 0.5px solid lightpink;
+    border-radius: 10px;
+    box-shadow: 4px 4px 5px 5px lightsalmon;
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+.LoginForm{
+    display:block;
+    margin:20px;
+    padding:10px;
+
+}
+.inp{
+    margin:10px;
+    padding:10px;
+    color:rgb(36, 27, 27);
+
+}
+input{
+    cursor:pointer;
+    border:2px solid grey;
+    box-shadow: 3px 3px 4px 3px lightpink;
+    border-radius:10px;
+}

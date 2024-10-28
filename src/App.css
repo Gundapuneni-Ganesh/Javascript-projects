@@ -1,0 +1,39 @@
+@media(max-width:100%){
+    
+}
+.app{
+    display:inline-block;
+    width:100%;
+    height:auto;
+}
+.links-block{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    background-color:rgb(150, 237, 150);
+
+}
+.block{
+    height:30px;
+    width:100%;
+    border:2px solid blue;
+    background-color: cornflowerblue;
+    color:black;
+}
+.links{
+    height:25px;
+    width:100px;
+    text-align: center;
+    color:darkmagenta;
+    background-color: rgb(91, 196, 225);
+    border:none;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px lightcoral;
+}
+.links:hover{
+    transform:scale(1.1);
+    background-color: burlywood;
+    color:cornflowerblue;
+
+}
