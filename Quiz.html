@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <title>Quiz</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .main {
+            background-color: aquamarine;
+            border-radius: 5%;
+            padding: 20px;
+            width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .answers-block {
+            display: block;
+        }
+        .btn {
+            width: 90%;
+            margin-left: 10px;
+            text-align: left;
+            padding-left: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-family: 'Gill Sans';
+            font-weight: 600;
+            padding-top: 7px;
+            padding-bottom: 8px;
+        }
+        .btn:hover:not([disabled]) {
+            background-color: cadetblue;
+            color: white;
+        }
+        .btn:disabled {
+            cursor: no-drop;
+        }
+        #question-heading {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        #submit-button {
+            margin-left: 100px;
+            background-color: blue;
+            color: white;
+            border-radius: 10px;
+            display: none;
+        }
+        .correct {
+            background-color: black;
+            color: white;
+        }
+        .incorrect {
+            background-color: rgb(226, 30, 30);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1 id="main-Heading">Simple Quiz</h1>
+        <hr>
+        <div class="question-block">
+            <h2 id="question-heading">What is your favorite game?</h2>
+            <div class="answers-block"></div>
+        </div>
+        <div class="button-block">
+            <button id="submit-button">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the famous game in India?",
+                answers: [
+                    { text: "Cricket", ans: true },
+                    { text: "Golilu game", ans: false },
+                    { text: "Football", ans: false },
+                    { text: "Kabaddi", ans: false }
+                ]
+            },
+            {
+                question: "What are the most visited places in India?",
+                answers: [
+                    { text: "Andhra Pradesh", ans: false },
+                    { text: "Kerala", ans: false },
+                    { text: "Chennai", ans: false },
+                    { text: "Mumbai", ans: true }
+                ]
+            },
+            {
+                question: "Which is the national animal of India?",
+                answers: [
+                    { text: "Lion", ans: false },
+                    { text: "Tiger", ans: true },
+                    { text: "Elephant", ans: false },
+                    { text: "Peacock", ans: false }
+                ]
+            },
+            {
+                question: "What is the capital of India?",
+                answers: [
+                    { text: "Mumbai", ans: false },
+                    { text: "Delhi", ans: true },
+                    { text: "Kolkata", ans: false },
+                    { text: "Bangalore", ans: false }
+                ]
+            },
+            {
+                question: "Which festival is known as the festival of lights?",
+                answers: [
+                    { text: "Holi", ans: false },
+                    { text: "Diwali", ans: true },
+                    { text: "Eid", ans: false },
+                    { text: "Christmas", ans: false }
+                ]
+            },
+            {
+                question: "What is the official language of India?",
+                answers: [
+                    { text: "Hindi", ans: true },
+                    { text: "English", ans: false },
+                    { text: "Bengali", ans: false },
+                    { text: "Tamil", ans: false }
+                ]
+            },
+            {
+                question: "Which is the largest state in India by area?",
+                answers: [
+                    { text: "Maharashtra", ans: false },
+                    { text: "Uttar Pradesh", ans: false },
+                    { text: "Rajasthan", ans: true },
+                    { text: "Gujarat", ans: false }
+                ]
+            },
+            {
+                question: "What is the currency of India?",
+                answers: [
+                    { text: "Dollar", ans: false },
+                    { text: "Euro", ans: false },
+                    { text: "Rupee", ans: true },
+                    { text: "Pound", ans: false }
+                ]
+            },
+            {
+                question: "Which is the national flower of India?",
+                answers: [
+                    { text: "Rose", ans: false },
+                    { text: "Lotus", ans: true },
+                    { text: "Sunflower", ans: false },
+                    { text: "Lily", ans: false }
+                ]
+            },
+            {
+                question: "What is the national sport of India?",
+                answers: [
+                    { text: "Cricket", ans: false },
+                    { text: "Hockey", ans: true },
+                    { text: "Football", ans: false },
+                    { text: "Badminton", ans: false }
+                ]
+            }
+        ];
+
+        const questionElement = document.getElementById("question-heading");
+        const answerButtons = document.querySelector(".answers-block");
+        const nextButton = document.querySelector("#submit-button");
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            nextButton.innerHTML = "Next";
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            let currentQuestion = questions[currentQuestionIndex];
+            let questionNo = currentQuestionIndex + 1;
+            questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+
+            currentQuestion.answers.forEach(answer => {
+                const button = document.createElement("button");
+                button.innerHTML = answer.text;
+                button.classList.add("btn");
+                answerButtons.appendChild(button);
+
+                // Use dataset to store the answer's correctness
+                button.dataset.ans = answer.ans;
+
+                button.addEventListener("click", selectAnswer);
+            });
+        }
+
+        function resetState() {
+            nextButton.style.display = "none";
+            while (answerButtons.firstChild) {
+                answerButtons.removeChild(answerButtons.firstChild);
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectedBtn = e.target;
+            const isCorrect = selectedBtn.dataset.ans === "true";
+            if (isCorrect) {
+                selectedBtn.classList.add("correct");
+                score++;
+            } else {
+                selectedBtn.classList.add("incorrect");
+            }
+
+            Array.from(answerButtons.children).forEach(button => {
+                if (button.dataset.ans === "true") {
+                    button.classList.add("correct");
+                }
+                button.disabled = true;
+            });
+            nextButton.style.display = "block";
+        }
+
+        nextButton.addEventListener("click", () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                handleNextButton();
+            } else {
+                showScore();
+            }
+        });
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        function showScore() {
+            resetState();
+            questionElement.innerHTML = `You scored ${score} out of ${questions.length}`;
+            nextButton.innerHTML = `Play Again`;
+            nextButton.style.display = "block";
+            nextButton.addEventListener("click", startQuiz); // Restart the quiz on button click
+        }
+
+        startQuiz();
+    </script>
+</body>
+</html>
